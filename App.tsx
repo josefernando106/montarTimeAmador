@@ -1,118 +1,116 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { Component } from "react";
+import { View, Text, Button, StyleSheet, TextInput, Touchable, TouchableOpacity, Image } from "react-native";
+import Cronometro from "./cronometro";
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+interface AppState {
+    jogadores: string[];
+    nome?: string;
+    numero: number;
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+class App extends Component<{}, AppState> {
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            jogadores: [],
+            nome: "",
+            numero: 0
+        };
+        this.pegaNome = this.pegaNome.bind(this);
+        this.adicionarJogador = this.adicionarJogador.bind(this);
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+        this.vai = this.vai.bind(this);
+        this.parar = this.parar.bind(this);
+
+    }
+    vai() {
+        setInterval(() => {
+            this.setState({ numero: (this.state.numero ?? 0) + 0.1 });
+        }, 100);
+    }
+    parar() {
+        this.setState({ numero: 0 });
+    }
+    pegaNome(nome: string) {
+        this.setState({ nome });
+    }
+    adicionarJogador = (nome: string) => {
+        this.setState((prevState: any) => ({
+            jogadores: [...prevState.jogadores, nome]
+        }));
+    };
+    render() {
+        return (
+            <View style={[styles.container]}>
+                {/* adiconando os jogadores */}
+
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite o nome do jogador"
+                    onChangeText={this.pegaNome}
+                ></TextInput>
+
+                <View>
+                    <TouchableOpacity onPress={() => this.adicionarJogador(this.state.nome ?? "")}>
+                        <View style={styles.buton}>
+                            <Text style={styles.texto}>
+                                Adicione o jogador
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.texto}>
+                        LISTA DOS JOGADORES
+                    </Text>
+                    {this.state.jogadores.map((jogador: string, index: number) => {
+                        return (
+                            <View key={index}>
+                                <Text style={styles.texto}>
+                                    {jogador}
+                                </Text>
+                            </View>
+                        )
+                    }
+                    )}
+                </View>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+    container: {
+        flex: 1
+    },
+    input: {
+        height: 45,
+        borderWidth: 1,
+        borderColor: '#222',
+        margin: 10,
+        padding: 10,
+        fontSize: 20
+    },
+    texto: {
+        marginLeft: 5
+    },
+    buton: {
+        margin: 10,
+        backgroundColor: 'green',
+        height: 45,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#222',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    }
 
+})
 export default App;
+
+
