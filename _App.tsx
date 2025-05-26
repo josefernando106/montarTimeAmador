@@ -1,7 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, Button, StyleSheet, TextInput, Touchable, TouchableOpacity, Image } from "react-native";
-import Cronometro from "./cronometro";
-
+import { 
+    View, 
+    Text, 
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    Keyboard
+ } from "react-native"; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import Cronometro from "./src/Components/cronometro";
+// import Pickers from "./src/Components/Pickers";
 
 
 interface AppState {
@@ -21,27 +30,34 @@ class App extends Component<{}, AppState> {
         };
         this.pegaNome = this.pegaNome.bind(this);
         this.adicionarJogador = this.adicionarJogador.bind(this);
-
-        this.vai = this.vai.bind(this);
-        this.parar = this.parar.bind(this);
-
     }
-    vai() {
-        setInterval(() => {
-            this.setState({ numero: (this.state.numero ?? 0) + 0.1 });
-        }, 100);
-    }
-    parar() {
-        this.setState({ numero: 0 });
-    }
+    
     pegaNome(nome: string) {
         this.setState({ nome });
     }
+
     adicionarJogador = (nome: string) => {
         this.setState((prevState: any) => ({
             jogadores: [...prevState.jogadores, nome]
         }));
-    };
+        Keyboard.dismiss(); 
+    }
+
+    async componentDidMount(): Promise<void> {
+        const jogadores = await AsyncStorage.getItem("jogadores");
+        if (jogadores) {
+            this.setState({ jogadores: JSON.parse(jogadores) });
+        }
+        
+    }
+
+    async componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<AppState>): Promise<void> {
+        if(prevState.jogadores !== this.state.jogadores) {
+            await AsyncStorage.setItem("jogadores", JSON.stringify(this.state.jogadores))                
+        }
+    }
+
+
     render() {
         return (
             <View style={[styles.container]}>
@@ -78,6 +94,8 @@ class App extends Component<{}, AppState> {
                     }
                     )}
                 </View>
+                {/* <Pickers />
+                <Cronometro /> */}
             </View>
         );
     }
