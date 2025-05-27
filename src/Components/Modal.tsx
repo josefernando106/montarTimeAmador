@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Filme } from "../Pages/Filmes";
+import { Filme } from "../Pages/Filmes/Index";
 
 interface ModalProps {
     voltar: () => void;

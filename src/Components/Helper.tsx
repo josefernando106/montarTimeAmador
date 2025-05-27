@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal } from "react-native";
-import { Filme } from "../Pages/Filmes";
+import { Filme } from "../Pages/Filmes/Index";
 import ModalComponent from "./Modal";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "./StyleSheet";

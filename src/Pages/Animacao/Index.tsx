@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable';
 // Criar um componente animado para o TouchableOpacity
 const ButtonAnimated = Animatable.createAnimatableComponent(TouchableOpacity);
 
-export default function App() {
+export default function AnimacaoApp() {
 
     const larAnimado = useRef(new Animated.Value(150)).current;
     const altAnimado = useRef(new Animated.Value(50)).current;

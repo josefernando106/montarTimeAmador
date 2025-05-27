@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from "react-native";
-import api from '../Services/Api';
-import Filmes from "../Components/Helper";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import api from '../../Services/Api';
+import Filmes from "../../Components/Helper";
+import { useNavigation } from "@react-navigation/native";
 
 export interface Filme {
     id: number;
@@ -11,10 +12,17 @@ export interface Filme {
     foto: string;
 }
 
-export default function App() {
+export default function FilmesApp() {
 
     const [filmes, setFilmes] = useState<Filme[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const navigation = useNavigation();
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: 'Lista de Filmes 2023',
+        })
+    }, [navigation]);
 
     useEffect(() => {
         async function loadFilmes() {

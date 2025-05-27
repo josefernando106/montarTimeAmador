@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { PickerItem } from "../Components/Helper";
-import { apiEconomia } from "../Services/Api";
+import { PickerItem } from "../../Components/Helper";
+import { apiEconomia } from "../../Services/Api";
 
-export default function App() {
+export default function ConverterApp() {
     const [moedas, setMoedas] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [moedaSelecionada, setMoedaSelecionada] = useState<any>(null);
