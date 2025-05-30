@@ -10,20 +10,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-firebase/app": "^22.2.0",
+    "@react-native-firebase/auth": "^22.2.0",
     "@react-native-picker/picker": "^2.11.0",
     "@react-native-vector-icons/common": "^12.0.0",
     "@react-native-vector-icons/evil-icons": "^12.0.0",
+    "@react-native-vector-icons/feather": "^12.0.0",
     "@react-native-vector-icons/fontawesome6": "^12.0.0",
     "@react-navigation/bottom-tabs": "^7.3.13",
     "@react-navigation/native": "^7.1.9",
     "@react-navigation/native-stack": "^7.3.13",
     "axios": "^1.9.0",
+    "feather-icons": "^4.29.2",
+    "firebase": "^11.8.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
     "react-native-animatable": "^1.4.0",
     "react-native-safe-area-context": "^5.4.1",
-    "react-native-screens": "^4.11.0"
+    "react-native-screens": "^4.11.0",
+    "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
